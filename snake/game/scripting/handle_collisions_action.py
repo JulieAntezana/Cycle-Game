@@ -2,6 +2,12 @@ import constants
 from game.casting.actor import Actor
 from game.scripting.action import Action
 from game.shared.point import Point
+from game.casting.snake import Snake
+from game.services.keyboard_service import KeyboardService
+from game.scripting.control_actors_action import ControlActorsAction
+
+
+
 
 class HandleCollisionsAction(Action):
     """
@@ -28,7 +34,7 @@ class HandleCollisionsAction(Action):
         if not self._is_game_over:
             self._handle_food_collision(cast)
             self._handle_segment_collision(cast)
-            self._handle_game_over(cast)
+            self._handle_game_over(cast, script)
 
     def _handle_food_collision(self, cast):
         """Updates the score and moves the food if the snake collides with the food.
@@ -61,26 +67,22 @@ class HandleCollisionsAction(Action):
             if head.get_position().equals(segment.get_position()):
                 self._is_game_over = True
         
-    def _handle_game_over(self, cast):
+    def _handle_game_over(self, cast, script):
         """Shows the 'game over' message and turns the snake and food white if the game is over.
         
         Args:
             cast (Cast): The cast of Actors in the game.
         """
         if self._is_game_over:
-            snake = cast.get_first_actor("snakes")
-            segments = snake.get_segments()
-            food = cast.get_first_actor("foods")
-
-            x = int(constants.MAX_X / 2)
-            y = int(constants.MAX_Y / 2)
-            position = Point(x, y)
-
-            message = Actor()
-            message.set_text("Game Over!")
-            message.set_position(position)
-            cast.add_actor("messages", message)
-
-            for segment in segments:
-                segment.set_color(constants.WHITE)
-            food.set_color(constants.WHITE)
+            old_snake = cast.get_first_actor("snakes")   
+            cast.remove_actor("snakes", old_snake)
+            cast.add_actor("snakes", Snake())
+             
+            
+            keyboard_service = KeyboardService() 
+            
+            
+            script.add_action("input", ControlActorsAction(keyboard_service))
+            
+            self._is_game_over = False
+            
