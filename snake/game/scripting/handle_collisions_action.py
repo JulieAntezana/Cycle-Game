@@ -78,9 +78,7 @@ class HandleCollisionsAction(Action):
             cast.remove_actor("snakes", old_snake)
             cast.add_actor("snakes", Snake())
              
-            
             keyboard_service = KeyboardService() 
-            
             
             script.add_action("input", ControlActorsAction(keyboard_service))
             
