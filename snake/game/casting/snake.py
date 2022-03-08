@@ -45,7 +45,7 @@ class Snake(Actor):
             segment.set_position(position)
             segment.set_velocity(velocity)
             segment.set_text("#")
-            segment.set_color(constants.GREEN)
+            segment.set_color(constants.BLUE)
             self._segments.append(segment)
 
     def turn_head(self, velocity):
@@ -56,9 +56,11 @@ class Snake(Actor):
         y = int(100)
 
         for i in range(constants.SNAKE_LENGTH):
-            position = Point(x - i * constants.CELL_SIZE, y)
-            velocity = Point(1 * constants.CELL_SIZE, 0)
-            text = "8" if i == 0 else "#"
+            # position = Point(x - i * constants.CELL_SIZE, y)
+            position = Point(y - i * constants.CELL_SIZE, x)
+            # velocity = Point(1 * constants.CELL_SIZE, 0)
+            velocity = Point(1 * 0, constants.CELL_SIZE)
+            text = "8" if i == 0 else "="
             color = constants.YELLOW if i == 0 else constants.GREEN
             
             segment = Actor()
