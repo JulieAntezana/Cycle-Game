@@ -1,3 +1,4 @@
+import pyray
 import constants
 from game.casting.actor import Actor
 from game.scripting.action import Action
@@ -63,11 +64,7 @@ class HandleCollisionsAction(Action):
                 elif cycle1_head.get_position().equals(cycle2_head.get_position()):
                     self._winner = 3
                     self._is_game_over = True
-                    
-                    
-                                      
-                    
-                    
+                 
                     
         for isegments in cycle1_segments:
             for segment in cycle2_segments:
@@ -88,50 +85,52 @@ class HandleCollisionsAction(Action):
             score1 = cast.get_first_actor("score1")
             score2 = cast.get_first_actor("score2")
             
+            message = Actor()
+            x = int(constants.MAX_X / 2)
+            y = int(constants.MAX_Y /2)
+            position = Point(x, y)
+            message.set_position(position)
             
             if self._winner == 1:
-                score1.add_points(1) 
+                score1.add_points(1)
+                message.set_text("Winner! Player One! (Press Spacebar to continue.)") 
             elif self._winner == 2:
-                score2.add_points(1)                   
+                score2.add_points(1)   
+                message.set_text("Winner! Player Two! (Press Spacebar to continue.)")                 
                 
             elif self._winner == 3:
                 score1.add_points(-1)                   
-                score2.add_points(-1) 
-        
-            old_cycle1 = cast.get_first_actor("cycle1")   
-            cast.remove_actor("cycle1", old_cycle1)
-            cast.add_actor("cycle1", CycleOne())
+                score2.add_points(-1)
+                message.set_text("Head On Collision! (Press Spacebar to continue.)")  
 
-            old_cycle2 = cast.get_first_actor("cycle2")   
-            cast.remove_actor("cycle2", old_cycle2)
-            cast.add_actor("cycle2", CycleTwo())
+            cast.add_actor("messages", message)
+
+            cycle1 = cast.get_first_actor("cycle1")
+            segments1 = cycle1.get_segments()
+
+            cycle2 = cast.get_first_actor("cycle2")
+            segments2 = cycle2.get_segments()
+
+            for segment in segments1:
+                segment.set_color(constants.WHITE)
+
+            for segment in segments2:
+                segment.set_color(constants.WHITE)
 
             keyboard_service = KeyboardService() 
 
+            if keyboard_service.is_key_down('m'):
 
-            script.add_action("input", ControlCycleOneAction(keyboard_service))
-            script.add_action("input", ControlCycleTwoAction(keyboard_service))
+                old_cycle1 = cast.get_first_actor("cycle1")   
+                cast.remove_actor("cycle1", old_cycle1)
+                cast.add_actor("cycle1", CycleOne())
 
-            self._is_game_over = False
+                old_cycle2 = cast.get_first_actor("cycle2")   
+                cast.remove_actor("cycle2", old_cycle2)
+                cast.add_actor("cycle2", CycleTwo())
 
-            # cycle1 = cast.get_first_actor("cycle1")
-            # segments = cycle1.get_segments()
+                script.add_action("input", ControlCycleOneAction(keyboard_service))
+                script.add_action("input", ControlCycleTwoAction(keyboard_service))
 
-            # x = int(150)
-            # y = int(150)
-            # position = Point(x, y)
+                self._is_game_over = False
 
-            # cycle2 = cast.get_first_actor("cycle2")
-            # segments = cycle2.get_segments()
-
-            # x = int(750)
-            # y = int(150)
-            # position = Point(x, y)
-
-            # message = Actor()
-            # message.set_text("Game Over!")
-            # message.set_position(position)
-            # cast.add_actor("messages", message)
-
-            # for segment in segments:
-            #     segment.set_color(constants.WHITE)

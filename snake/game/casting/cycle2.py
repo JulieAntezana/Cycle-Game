@@ -44,7 +44,7 @@ class CycleTwo(Actor):
             segment = Actor()
             segment.set_position(position)
             segment.set_velocity(velocity)
-            segment.set_text("#")
+            segment.set_text("H")
             segment.set_color(constants.BLUE)
             self._segments.append(segment)
 
@@ -62,7 +62,7 @@ class CycleTwo(Actor):
             position = Point(x - i * constants.CELL_SIZE, y)
             velocity = Point(1 * constants.CELL_SIZE, 0)
             # velocity = Point(0, 1 * constants.CELL_SIZE)
-            text = "8" if i == 0 else "#"
+            text = "8" if i == 0 else "H"
             color = constants.RED if i == 0 else constants.BLUE
             
             segment = Actor()
