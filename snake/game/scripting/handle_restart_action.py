@@ -34,7 +34,9 @@ class HandleRestartAction(Action):
         # restart
         if self._keyboard_service.is_key_down('m'):
             self._restart = True
-            print(self._restart)
+            print("got here")
+            
+            
         
     def get_restart(self):
         return self._restart

@@ -48,9 +48,10 @@ class Script:
         Returns:
             List: The first actor in the group.
         """
-
-            result = self._actions[group][0]
-            return result
+            result = None
+            if group in self._actions.keys():
+                result = self._actions[group][-1]
+                return result
     
     def remove_action(self, group, action):
         """Removes an action from the given group.

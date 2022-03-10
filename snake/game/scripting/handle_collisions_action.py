@@ -9,6 +9,8 @@ from game.casting.cycle2 import CycleTwo
 from game.services.keyboard_service import KeyboardService
 from game.scripting.control_cycle1_action import ControlCycleOneAction
 from game.scripting.control_cycle2_action import ControlCycleTwoAction
+from game.scripting.handle_restart_action import HandleRestartAction
+
 
 
 class HandleCollisionsAction(Action):
@@ -25,7 +27,6 @@ class HandleCollisionsAction(Action):
         """Constructs a new HandleCollisionsAction."""
         self._is_game_over = False
         self._winner = "";
-        self._restart = False
 
     def execute(self, cast, script):
         """Executes the handle collisions action.
@@ -123,12 +124,13 @@ class HandleCollisionsAction(Action):
 
 
                 
-                self._restart = script.get_end("end")
+                restart = script.get_end("input")
                 
                 
-                if self._restart.get_restart():
+                
+                if restart.get_restart() == True:
                     
-                    time.sleep(3)
+                    print("I got here")
 
                     old_cycle1 = cast.get_first_actor("cycle1")   
                     cast.remove_actor("cycle1", old_cycle1)
@@ -141,5 +143,8 @@ class HandleCollisionsAction(Action):
 
                     script.add_action("input", ControlCycleOneAction(keyboard_service))
                     script.add_action("input", ControlCycleTwoAction(keyboard_service))
+                    script.add_action("input", HandleRestartAction(keyboard_service))
+                    
+                self._is_game_over = False
 
 

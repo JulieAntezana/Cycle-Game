@@ -38,7 +38,7 @@ def main():
     script = Script()
     script.add_action("input", ControlCycleOneAction(keyboard_service))
     script.add_action("input", ControlCycleTwoAction(keyboard_service))
-    script.add_action("end", HandleRestartAction(keyboard_service))
+    script.add_action("input", HandleRestartAction(keyboard_service))
     
     script.add_action("update", MoveActorsAction())
     script.add_action("update", GrowTrailAction())
