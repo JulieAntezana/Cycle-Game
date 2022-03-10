@@ -1,4 +1,5 @@
 import pyray
+import time
 import constants
 from game.casting.actor import Actor
 from game.scripting.action import Action
@@ -24,6 +25,7 @@ class HandleCollisionsAction(Action):
         """Constructs a new HandleCollisionsAction."""
         self._is_game_over = False
         self._winner = "";
+        self._restart = False
 
     def execute(self, cast, script):
         """Executes the handle collisions action.
@@ -117,20 +119,27 @@ class HandleCollisionsAction(Action):
             for segment in segments2:
                 segment.set_color(constants.WHITE)
 
-            keyboard_service = KeyboardService() 
+            
 
-            if keyboard_service.is_key_down('m'):
 
-                old_cycle1 = cast.get_first_actor("cycle1")   
-                cast.remove_actor("cycle1", old_cycle1)
-                cast.add_actor("cycle1", CycleOne())
+                
+                self._restart = script.get_end("end")
+                
+                
+                if self._restart.get_restart():
+                    
+                    time.sleep(3)
 
-                old_cycle2 = cast.get_first_actor("cycle2")   
-                cast.remove_actor("cycle2", old_cycle2)
-                cast.add_actor("cycle2", CycleTwo())
+                    old_cycle1 = cast.get_first_actor("cycle1")   
+                    cast.remove_actor("cycle1", old_cycle1)
+                    cast.add_actor("cycle1", CycleOne())
 
-                script.add_action("input", ControlCycleOneAction(keyboard_service))
-                script.add_action("input", ControlCycleTwoAction(keyboard_service))
+                    old_cycle2 = cast.get_first_actor("cycle2")   
+                    cast.remove_actor("cycle2", old_cycle2)
+                    cast.add_actor("cycle2", CycleTwo())
+                    keyboard_service = KeyboardService() 
 
-                self._is_game_over = False
+                    script.add_action("input", ControlCycleOneAction(keyboard_service))
+                    script.add_action("input", ControlCycleTwoAction(keyboard_service))
+
 

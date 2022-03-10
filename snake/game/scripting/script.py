@@ -39,6 +39,19 @@ class Script:
             results = self._actions[group].copy()
         return results
     
+    def get_end(self, group):
+            """Gets the first actor in the given group.
+        
+        Args:
+            group (string): The name of the group.
+            
+        Returns:
+            List: The first actor in the group.
+        """
+
+            result = self._actions[group][0]
+            return result
+    
     def remove_action(self, group, action):
         """Removes an action from the given group.
         
