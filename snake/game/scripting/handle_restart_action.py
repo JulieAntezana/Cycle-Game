@@ -32,9 +32,9 @@ class HandleRestartAction(Action):
             script (Script): The script of Actions in the game.
         """
         # restart
-        if self._keyboard_service.is_key_down('m'):
+        if self._keyboard_service.is_key_down('r'):
             self._restart = True
-            print("got here")
+            
             
             
         

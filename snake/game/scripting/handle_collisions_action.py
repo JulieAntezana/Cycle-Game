@@ -1,5 +1,4 @@
-import pyray
-import time
+
 import constants
 from game.casting.actor import Actor
 from game.scripting.action import Action
@@ -27,6 +26,8 @@ class HandleCollisionsAction(Action):
         """Constructs a new HandleCollisionsAction."""
         self._is_game_over = False
         self._winner = "";
+        self._keyboard_service = KeyboardService()
+        self._action = HandleRestartAction(self._keyboard_service)
 
     def execute(self, cast, script):
         """Executes the handle collisions action.
@@ -39,6 +40,9 @@ class HandleCollisionsAction(Action):
 
             self._handle_segment_collision(cast)
             self._handle_game_over(cast, script)
+            
+        else:
+            self._restart(cast, script)
 
 
     
@@ -76,15 +80,72 @@ class HandleCollisionsAction(Action):
                                        
                     self._is_game_over = True
                 
+    def _restart(self, cast, script):
+        """When the game is over, this would be the method running in the game loop.
+        It takes the cast and script as parameters and renders the white colored cycles without collisions.
+        There is an if statement that checks if the user has pressed R to restart the game.
+        
+        
+
+        Args:
+            cast (_type_): _description_
+            script (_type_): _description_
+        """
+        cycle1 = cast.get_first_actor("cycle1")
+        segments1 = cycle1.get_segments()
+
+        cycle2 = cast.get_first_actor("cycle2")
+        segments2 = cycle2.get_segments()
+
+        for segment in segments1:
+            segment.set_color(constants.WHITE)
+
+        for segment in segments2:
+            segment.set_color(constants.WHITE)
+        
+        
+        
+        
+    
+        #checks for input  
+        restart = script.get_end("input")       
+        if restart.get_restart():
+            message = cast.get_last_actor("messages")
+                
+            message.set_text("")
+
+            old_cycle1 = cast.get_first_actor("cycle1")   
+            cast.remove_actor("cycle1", old_cycle1)
+            cast.add_actor("cycle1", CycleOne())
+
+            old_cycle2 = cast.get_first_actor("cycle2")   
+            cast.remove_actor("cycle2", old_cycle2)
+            cast.add_actor("cycle2", CycleTwo())
+
+            
+            
+            script.add_action("input", ControlCycleTwoAction(self._keyboard_service))
+            script.add_action("input", ControlCycleOneAction(self._keyboard_service))
+            self._action = HandleRestartAction(self._keyboard_service)
+            
+            
+            self._is_game_over = False
+            
+        else:    pass    
         
         
     def _handle_game_over(self, cast, script):
-        """Shows the 'game over' message and turns the cycles white if the game is over.
+        """Shows the 'game over' message including the playere that won the round, also applies scores to the appropriate individuals.
         
         Args:
             cast (Cast): The cast of Actors in the game.
         """
+        
+
         if self._is_game_over:
+            
+            script.add_action("input", self._action)
+            
             score1 = cast.get_first_actor("score1")
             score2 = cast.get_first_actor("score2")
             
@@ -96,55 +157,23 @@ class HandleCollisionsAction(Action):
             
             if self._winner == 1:
                 score1.add_points(1)
-                message.set_text("Winner! Player One! (Press Spacebar to continue.)") 
+                message.set_text("Player One Wins! (Press R to continue.)") 
             elif self._winner == 2:
                 score2.add_points(1)   
-                message.set_text("Winner! Player Two! (Press Spacebar to continue.)")                 
+                message.set_text("Player Two Wins! (Press R to continue.)")                 
                 
             elif self._winner == 3:
                 score1.add_points(-1)                   
                 score2.add_points(-1)
-                message.set_text("Head On Collision! (Press Spacebar to continue.)")  
-
+                message.set_text("Head On, Both Players Loose! (Press R to continue.)")  
+                
             cast.add_actor("messages", message)
-
-            cycle1 = cast.get_first_actor("cycle1")
-            segments1 = cycle1.get_segments()
-
-            cycle2 = cast.get_first_actor("cycle2")
-            segments2 = cycle2.get_segments()
-
-            for segment in segments1:
-                segment.set_color(constants.WHITE)
-
-            for segment in segments2:
-                segment.set_color(constants.WHITE)
+                
+            
 
             
 
-
-                
-                restart = script.get_end("input")
-                
-                
-                
-                if restart.get_restart() == True:
-                    
-                    print("I got here")
-
-                    old_cycle1 = cast.get_first_actor("cycle1")   
-                    cast.remove_actor("cycle1", old_cycle1)
-                    cast.add_actor("cycle1", CycleOne())
-
-                    old_cycle2 = cast.get_first_actor("cycle2")   
-                    cast.remove_actor("cycle2", old_cycle2)
-                    cast.add_actor("cycle2", CycleTwo())
-                    keyboard_service = KeyboardService() 
-
-                    script.add_action("input", ControlCycleOneAction(keyboard_service))
-                    script.add_action("input", ControlCycleTwoAction(keyboard_service))
-                    script.add_action("input", HandleRestartAction(keyboard_service))
-                    
-                self._is_game_over = False
+    
+            self._is_game_over = True
 
 
