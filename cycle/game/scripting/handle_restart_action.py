@@ -6,16 +6,16 @@ from game.shared.point import Point
 
 class HandleRestartAction(Action):
     """
-    An input action that controls cycle2.
+    An input action that handles restart action.
     
-    The responsibility of ControlCycleTwoAction is to get the direction and move cycle2 in that direction.
+    The responsibility of HandleRestartAction is to get the input from the Spacebar to restart the game.
 
     Attributes:
         _keyboard_service (KeyboardService): An instance of KeyboardService.
     """
 
     def __init__(self, keyboard_service):
-        """Constructs a new ControlCycleTwoAction using the specified KeyboardService.
+        """Constructs a new HandleRestartAction using the specified KeyboardService.
         
         Args:
             keyboard_service (KeyboardService): An instance of KeyboardService.
@@ -25,19 +25,16 @@ class HandleRestartAction(Action):
         self._restart = False
 
     def execute(self, cast, script):
-        """Executes the control cycle2 action.
+        """Executes the handle restart action.
 
         Args:
             cast (Cast): The cast of Actors in the game.
             script (Script): The script of Actions in the game.
         """
-        # restart
+        # restart action
         if self._keyboard_service.is_key_down('space'):
-            self._restart = True
-            
-            
-            
-        
+            self._restart = True          
+                   
     def get_restart(self):
         return self._restart
             

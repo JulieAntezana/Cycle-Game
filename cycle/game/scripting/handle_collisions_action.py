@@ -10,8 +10,6 @@ from game.scripting.control_cycle1_action import ControlCycleOneAction
 from game.scripting.control_cycle2_action import ControlCycleTwoAction
 from game.scripting.handle_restart_action import HandleRestartAction
 
-
-
 class HandleCollisionsAction(Action):
     """
     An update action that handles interactions between the actors.
@@ -83,7 +81,7 @@ class HandleCollisionsAction(Action):
     def _restart(self, cast, script):
         """When the game is over, this would be the method running in the game loop.
         It takes the cast and script as parameters and renders the white colored cycles without collisions.
-        There is an if statement that checks if the user has pressed R to restart the game.
+        There is an if statement that checks if the user has pressed the spacebar to restart the game.
         
         
 
@@ -102,10 +100,6 @@ class HandleCollisionsAction(Action):
 
         for segment in segments2:
             segment.set_color(constants.WHITE)
-        
-        
-        
-        
     
         #checks for input  
         restart = script.get_end("input")       
@@ -120,14 +114,11 @@ class HandleCollisionsAction(Action):
 
             old_cycle2 = cast.get_first_actor("cycle2")   
             cast.remove_actor("cycle2", old_cycle2)
-            cast.add_actor("cycle2", CycleTwo())
-
-            
+            cast.add_actor("cycle2", CycleTwo())            
             
             script.add_action("input", ControlCycleTwoAction(self._keyboard_service))
             script.add_action("input", ControlCycleOneAction(self._keyboard_service))
             self._action = HandleRestartAction(self._keyboard_service)
-            
             
             self._is_game_over = False
             
@@ -158,6 +149,7 @@ class HandleCollisionsAction(Action):
             if self._winner == 1:
                 score1.add_points(1)
                 message.set_text("Player One Wins! (Press Spacebar to continue.)") 
+
             elif self._winner == 2:
                 score2.add_points(1)   
                 message.set_text("Player Two Wins! (Press Spacebar to continue.)")                 
@@ -167,12 +159,7 @@ class HandleCollisionsAction(Action):
                 score2.add_points(-1)
                 message.set_text("Head On, Both Players Loose! (Press Spacebar to continue.)")  
                 
-            cast.add_actor("messages", message)
-                
-            
-
-            
-
+            cast.add_actor("messages", message)                
     
             self._is_game_over = True
 

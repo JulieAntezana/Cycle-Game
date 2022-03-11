@@ -5,7 +5,7 @@ from game.shared.point import Point
 
 class CycleTwo(Actor):
     """
-    A long limbless reptile.
+    A Cycle is a wheeled vehicle that leaves a trail behind it to indicate the path it has taken.
     
     The responsibility of CycleTwo is to move itself.
 

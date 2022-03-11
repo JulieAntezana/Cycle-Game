@@ -6,7 +6,7 @@ from game.shared.point import Point
 
 class ControlCycleOneAction(Action):
     """
-    An input action that controls cycle1.
+    An input action that controls Cycle One.
     
     The responsibility of ControlCycleOneAction is to get the direction and move cycle1 in that direction.
 
