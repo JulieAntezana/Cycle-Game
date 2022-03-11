@@ -69,7 +69,8 @@ class HandleCollisionsAction(Action):
                 elif cycle1_head.get_position().equals(cycle2_head.get_position()):
                     self._winner = 3
                     self._is_game_over = True
-                 
+
+                
                     
         for isegments in cycle1_segments:
             for segment in cycle2_segments:
@@ -77,6 +78,12 @@ class HandleCollisionsAction(Action):
                     self._winner = 1                   
                                        
                     self._is_game_over = True
+
+                if cycle1_head.get_position().equals(segment.get_position()) or cycle1_head.get_position().equals(isegments.get_position()) \
+                     and \
+                    cycle2_head.get_position().equals(segment.get_position()) or cycle2_head.get_position().equals(isegments.get_position())            :
+                    self._winner = 4
+                    self._is_game_over = True 
                 
     def _restart(self, cast, script):
         """When the game is over, this would be the method running in the game loop.
@@ -158,6 +165,11 @@ class HandleCollisionsAction(Action):
                 score1.add_points(-1)                   
                 score2.add_points(-1)
                 message.set_text("Head On, Both Players Loose! (Press Spacebar to continue.)")  
+            
+            elif self._winner == 4:
+                score1.add_points(0)                   
+                score2.add_points(0)
+                message.set_text("No Winner, Both Players collide! (Press Spacebar to continue.)")  
                 
             cast.add_actor("messages", message)                
     
