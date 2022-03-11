@@ -79,7 +79,7 @@ class HandleCollisionsAction(Action):
                                        
                     self._is_game_over = True
 
-                if cycle1_head.get_position().equals(segment.get_position()) or cycle1_head.get_position().equals(isegments.get_position()) \
+                elif cycle1_head.get_position().equals(segment.get_position()) or cycle1_head.get_position().equals(isegments.get_position()) \
                      and \
                     cycle2_head.get_position().equals(segment.get_position()) or cycle2_head.get_position().equals(isegments.get_position())            :
                     self._winner = 4
