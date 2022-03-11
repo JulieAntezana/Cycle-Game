@@ -6,7 +6,7 @@ Cycle
 
 The best rides are the ones where you
 bite off much more than you can chew,
-and live through it. ==Doug Bradbury--
+and live through it. --Doug Bradbury--
 
 Overview
 
