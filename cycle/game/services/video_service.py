@@ -24,7 +24,7 @@ class VideoService:
         the beginning of the game's output phase.
         """
         pyray.begin_drawing()
-        pyray.clear_background(pyray.BLACK)
+        pyray.clear_background([25,25,55])
         if self._debug == True:
             self._draw_grid()
     
@@ -82,10 +82,10 @@ class VideoService:
     def _draw_grid(self):
         """Draws a grid on the screen."""
         for y in range(0, constants.MAX_Y, constants.CELL_SIZE):
-            pyray.draw_line(0, y, constants.MAX_X, y, pyray.GRAY)
+            pyray.draw_line(0, y, constants.MAX_X, y, pyray.BLACK)
             
         for x in range(0, constants.MAX_X, constants.CELL_SIZE):
-            pyray.draw_line(x, 0, x, constants.MAX_Y, pyray.GRAY)
+            pyray.draw_line(x, 0, x, constants.MAX_Y, pyray.BLACK)
     
     def _get_x_offset(self, text, font_size):
         width = pyray.measure_text(text, font_size)

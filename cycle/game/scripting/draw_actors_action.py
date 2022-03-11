@@ -36,6 +36,7 @@ class DrawActorsAction(Action):
         messages = cast.get_actors("messages")
 
         self._video_service.clear_buffer()
+        self._video_service._draw_grid()
         self._video_service.draw_actor(cycle1)
         self._video_service.draw_actor(cycle2)
         self._video_service.draw_actors(segments1) 

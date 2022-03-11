@@ -44,7 +44,7 @@ class CycleOne(Actor):
             segment = Actor()
             segment.set_position(position)
             segment.set_velocity(velocity)
-            segment.set_text("H")
+            segment.set_text("0")
             segment.set_color(constants.GREEN)
             self._segments.append(segment)
 
@@ -62,7 +62,7 @@ class CycleOne(Actor):
             position = Point(x - i * constants.CELL_SIZE, y)
             velocity = Point(1 * constants.CELL_SIZE, 0)
             # velocity = Point(0, 1 * constants.CELL_SIZE)
-            text = "8" if i == 0 else "H"
+            text = "8" if i == 0 else "0"
             color = constants.YELLOW if i == 0 else constants.GREEN
             
             segment = Actor()

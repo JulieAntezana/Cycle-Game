@@ -1,4 +1,3 @@
-
 import constants
 from game.casting.actor import Actor
 from game.scripting.action import Action
@@ -78,12 +77,6 @@ class HandleCollisionsAction(Action):
                     self._winner = 1                   
                                        
                     self._is_game_over = True
-
-                elif cycle1_head.get_position().equals(segment.get_position()) or cycle1_head.get_position().equals(isegments.get_position()) \
-                     and \
-                    cycle2_head.get_position().equals(segment.get_position()) or cycle2_head.get_position().equals(isegments.get_position())            :
-                    self._winner = 4
-                    self._is_game_over = True 
                 
     def _restart(self, cast, script):
         """When the game is over, this would be the method running in the game loop.

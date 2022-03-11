@@ -44,8 +44,8 @@ class CycleTwo(Actor):
             segment = Actor()
             segment.set_position(position)
             segment.set_velocity(velocity)
-            segment.set_text("H")
-            segment.set_color(constants.BLUE)
+            segment.set_text("0")
+            segment.set_color(constants.YELLOW)
             self._segments.append(segment)
 
     def turn_head(self, velocity):
@@ -60,10 +60,12 @@ class CycleTwo(Actor):
 
         for i in range(constants.CYCLE_LENGTH):
             position = Point(x - i * constants.CELL_SIZE, y)
-            velocity = Point(1 * constants.CELL_SIZE, 0)
+            velocity = Point(1 * -constants.CELL_SIZE, 0)
+            # velocity = Point(1 *-constants.CELL_SIZE, 0)
             # velocity = Point(0, 1 * constants.CELL_SIZE)
-            text = "8" if i == 0 else "H"
-            color = constants.RED if i == 0 else constants.BLUE
+            # velocity = Point(0, 1 * constants.CELL_SIZE)
+            text = "8" if i == 0 else "0"
+            color = constants.RED if i == 0 else constants.YELLOW
             
             segment = Actor()
             segment.set_position(position)
