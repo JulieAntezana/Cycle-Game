@@ -157,15 +157,15 @@ class HandleCollisionsAction(Action):
             
             if self._winner == 1:
                 score1.add_points(1)
-                message.set_text("Player One Wins! (Press R to continue.)") 
+                message.set_text("Player One Wins! (Press Spacebar to continue.)") 
             elif self._winner == 2:
                 score2.add_points(1)   
-                message.set_text("Player Two Wins! (Press R to continue.)")                 
+                message.set_text("Player Two Wins! (Press Spacebar to continue.)")                 
                 
             elif self._winner == 3:
                 score1.add_points(-1)                   
                 score2.add_points(-1)
-                message.set_text("Head On, Both Players Loose! (Press R to continue.)")  
+                message.set_text("Head On, Both Players Loose! (Press Spacebar to continue.)")  
                 
             cast.add_actor("messages", message)
                 
