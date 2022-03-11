@@ -142,7 +142,7 @@ class HandleCollisionsAction(Action):
             
             message = Actor()
             x = int(constants.MAX_X / 2)
-            y = int(constants.MAX_Y /2)
+            y = int(10)
             position = Point(x, y)
             message.set_position(position)
             
@@ -157,12 +157,8 @@ class HandleCollisionsAction(Action):
             elif self._winner == 3:
                 score1.add_points(-1)                   
                 score2.add_points(-1)
-                message.set_text("Head On, Both Players Loose! (Press Spacebar to continue.)")  
+                message.set_text("Head On, Both Players Lose! (Press Spacebar to continue.)")  
             
-            elif self._winner == 4:
-                score1.add_points(0)                   
-                score2.add_points(0)
-                message.set_text("No Winner, Both Players collide! (Press Spacebar to continue.)")  
                 
             cast.add_actor("messages", message)                
     
