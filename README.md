@@ -28,7 +28,7 @@ Players try to maneuver so the opponent collides with their trail.
 
 If a player collides with their opponent's trail...
 
-A "winner" message is displayed in the middle of the screen.
+A "winner" message is displayed at the top of the screen.
 
 The winner earns one point.
 
@@ -39,6 +39,10 @@ The cycles turn white.
 Players keep moving and turning but don't run into each other.
 
 Players can press the Spacebar to continue the game.
+
+![image](https://user-images.githubusercontent.com/90766037/157977187-5dd17084-1682-44e4-8d3c-ff99fd35d188.png)
+
+
 
 Authors: Marcus Ojo-Osasere, Rune Larsen, Julie Antezana
 
