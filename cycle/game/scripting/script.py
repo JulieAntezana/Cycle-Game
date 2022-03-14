@@ -38,8 +38,8 @@ class Script:
             results = self._actions[group].copy()
         return results
     
-    def get_end(self, group):
-            """Gets the first actor in the given group.
+    def get_last_action(self, group):
+            """Gets the last action in the given group.
         
         Args:
             group (string): The name of the group.
