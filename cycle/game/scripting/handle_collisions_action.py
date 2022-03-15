@@ -95,7 +95,7 @@ class HandleCollisionsAction(Action):
             segment.set_color(constants.WHITE)
     
         #checks for input  
-        restart = script.get_end("input")       
+        restart = script.get_last_action("input")       
         if restart.get_restart():
             message = cast.get_last_actor("messages")
                 
