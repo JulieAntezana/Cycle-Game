@@ -22,7 +22,7 @@ class HandleCollisionsAction(Action):
     def __init__(self):
         """Constructs a new HandleCollisionsAction."""
         self._is_game_over = False
-        self._winner = "";
+        self._winner = ""
         self._keyboard_service = KeyboardService()
         self._action = HandleRestartAction(self._keyboard_service)
 
@@ -41,8 +41,6 @@ class HandleCollisionsAction(Action):
         else:
             self._restart(cast, script)
 
-
-    
     def _handle_segment_collision(self, cast):
         """Sets the game over flag if the cycle collides with one of its segments.
         
@@ -52,8 +50,7 @@ class HandleCollisionsAction(Action):
         cycle1 = cast.get_first_actor("cycle1")
         cycle1_head = cycle1.get_segments()[0]
         cycle1_segments = cycle1.get_segments()[1:]
-        
-        
+         
         cycle2 = cast.get_first_actor("cycle2")
         cycle2_head = cycle2.get_segments()[0]
         cycle2_segments = cycle2.get_segments()[1:]
@@ -68,9 +65,7 @@ class HandleCollisionsAction(Action):
                 elif cycle1_head.get_position().equals(cycle2_head.get_position()):
                     self._winner = 3
                     self._is_game_over = True
-
-                
-                    
+                             
         for isegments in cycle1_segments:
             for segment in cycle2_segments:
                 if cycle2_head.get_position().equals(segment.get_position()) or cycle2_head.get_position().equals(isegments.get_position()):
@@ -81,9 +76,7 @@ class HandleCollisionsAction(Action):
     def _restart(self, cast, script):
         """When the game is over, this would be the method running in the game loop.
         It takes the cast and script as parameters and renders the white colored cycles without collisions.
-        There is an if statement that checks if the user has pressed the spacebar to restart the game.
-        
-        
+        There is an if statement that checks if the user has pressed the spacebar to restart the game.  
 
         Args:
             cast (_type_): _description_
@@ -122,16 +115,14 @@ class HandleCollisionsAction(Action):
             
             self._is_game_over = False
             
-        else:    pass    
-        
+        else:    pass         
         
     def _handle_game_over(self, cast, script):
         """Shows the 'game over' message including the playere that won the round, also applies scores to the appropriate individuals.
         
         Args:
             cast (Cast): The cast of Actors in the game.
-        """
-        
+        """       
 
         if self._is_game_over:
             
@@ -157,8 +148,7 @@ class HandleCollisionsAction(Action):
             elif self._winner == 3:
                 score1.add_points(-1)                   
                 score2.add_points(-1)
-                message.set_text("Head On, Both Players Lose! (Press Spacebar to continue.)")  
-            
+                message.set_text("Head On, Both Players Lose! (Press Spacebar to continue.)")    
                 
             cast.add_actor("messages", message)                
     
